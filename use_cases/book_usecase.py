@@ -13,9 +13,12 @@ class BookUseCase:
     def get_book(self, book_id):
         return self.repo.get_by_id(book_id)
 
-    def update_book(self, book):
-        if self.repo.get_by_id(book.id):
+    def update_book(self, book_id, book_data):
+        if self.repo.get_by_id(book_id):
+            book = Book(book_id, **book_data)
             self.repo.update(book)
+            return book
+        return None
 
     def delete_book(self, book_id):
         self.repo.delete(book_id)
@@ -24,10 +27,3 @@ class BookUseCase:
         book = Book(**book_data)
         self.repo.add(book)
         return book
-
-    def update_book_by_id(self, book_id, book_data):
-        if self.repo.get_by_id(book_id):
-            book = Book(book_id, **book_data)
-            self.repo.update(book)
-            return book
-        return None
