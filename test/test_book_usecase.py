@@ -8,9 +8,7 @@ class TestBookUseCase(unittest.TestCase):
         self.repo = InMemoryBookRepository()
         self.usecase = BookUseCase(self.repo)
 
-    # ---------------------------
     # Test Add Book
-    # ---------------------------
     def test_add_book_success(self):
         book = Book(1, "Python Dasar", "Andi", 2023, 10)
         self.usecase.add_book(book)
@@ -28,9 +26,7 @@ class TestBookUseCase(unittest.TestCase):
             self.usecase.add_book(Book(i, f"Book {i}", "Author", 2022, 5))
         self.assertEqual(len(self.usecase.list_books()), 3)
 
-    # ---------------------------
     # Test Get Book
-    # ---------------------------
     def test_get_book_existing(self):
         book = Book(2, "Flask Web", "Citra", 2021, 8)
         self.usecase.add_book(book)
@@ -46,9 +42,7 @@ class TestBookUseCase(unittest.TestCase):
         self.usecase.delete_book(3)
         self.assertIsNone(self.usecase.get_book(3))
 
-    # ---------------------------
     # Test Delete Book
-    # ---------------------------
     def test_delete_book_success(self):
         book = Book(4, "AI 101", "Eko", 2023, 7)
         self.usecase.add_book(book)
@@ -56,7 +50,7 @@ class TestBookUseCase(unittest.TestCase):
         self.assertEqual(len(self.usecase.list_books()), 0)
 
     def test_delete_book_not_exist(self):
-        self.usecase.delete_book(404)  # Tidak error meskipun tidak ada
+        self.usecase.delete_book(404) 
         self.assertEqual(len(self.usecase.list_books()), 0)
 
     def test_delete_and_readd_same_id(self):
@@ -66,9 +60,7 @@ class TestBookUseCase(unittest.TestCase):
         self.usecase.add_book(Book(5, "Re-add 2", "Gina", 2023, 3))
         self.assertEqual(self.usecase.get_book(5).title, "Re-add 2")
 
-    # ---------------------------
     # Test Update Book
-    # ---------------------------
     def test_update_book_success(self):
         book = Book(6, "Old Title", "Hani", 2020, 2)
         self.usecase.add_book(book)
@@ -78,7 +70,7 @@ class TestBookUseCase(unittest.TestCase):
 
     def test_update_book_not_exist(self):
         book = Book(7, "Not Found", "Ira", 2019, 1)
-        self.usecase.update_book(book)  # Tidak menambahkan karena belum ada
+        self.usecase.update_book(book)  
         self.assertIsNone(self.usecase.get_book(7))
 
 
@@ -88,9 +80,7 @@ class TestBookUseCase(unittest.TestCase):
         self.usecase.update_book(Book(8, "Updated", "Joko", 2021, 5))
         self.assertEqual(self.usecase.get_book(8).stock, 5)
 
-    # ---------------------------
     # Test List Books
-    # ---------------------------
     def test_list_books_empty(self):
         self.assertEqual(len(self.usecase.list_books()), 0)
 
